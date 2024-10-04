@@ -14,30 +14,45 @@ export class UsersService {
     @InjectRepository(UserEntity) private repo: Repository<UserEntity>,
   ) {}
   async createNewUser(user: CreateUserDTO) {
-    const userExist = await this.repo.exists({
-      where: {
-        email: user.email,
-      },
-    });
-    if (userExist) {
-      throw new ConflictException(
-        'User with email already exist, try another one.',
-      );
-    }
     const result = this.repo.create(user);
     await this.repo.save(result);
     return result;
   }
 
-  async loginUser(user: CreateUserDTO) {
+  async findUser(id: number) {
     const userExists = await this.repo.exists({
       where: {
-        email: user.email,
+        id,
       },
     });
     if (!userExists) {
       throw new NotFoundException('account not found');
     }
-    
+    const userVal = await this.repo.findOne({
+      where: {
+        id,
+      },
+    });
+    return userVal;
+  }
+
+  async CheckAccountStatus(email: string) {
+    const userExists = await this.repo.exists({
+      where: {
+        email,
+      },
+    });
+
+    return userExists;
+  }
+
+  async findUserByEmail(email: string) {
+    const user = await this.repo.findOne({
+      where: {
+        email,
+      },
+    });
+
+    return user;
   }
 }
