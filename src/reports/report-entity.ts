@@ -1,33 +1,45 @@
+import { UserEntity } from 'src/users/user.entities';
 import {
-  Entity,
   PrimaryGeneratedColumn,
   Column,
   AfterInsert,
-  Unique,
   AfterUpdate,
   AfterRemove,
-  OneToMany,
+  Entity,
+  ManyToOne,
 } from 'typeorm';
 
-import { Report } from 'src/reports/report-entity';
-
 @Entity()
-@Unique(['email'])
-export class UserEntity {
+export class Report {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  email: string;
+  long: number;
 
   @Column()
-  password: string;
+  price: number;
 
-  @OneToMany(() => Report, (report) => report.user)
-  reports: Report[];
+  @Column()
+  lat: number;
+
+  @Column()
+  year: number;
+
+  @Column()
+  model: string;
+
+  @Column()
+  make: string;
+
+  @Column()
+  milage: number;
+
+  @ManyToOne(() => UserEntity, (user) => user.reports)
+  user: UserEntity;
 
   @Column({ default: false })
-  admin: boolean;
+  approved: boolean;
 
   @AfterInsert()
   logInsert() {

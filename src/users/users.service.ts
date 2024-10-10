@@ -1,10 +1,9 @@
 import {
-  ConflictException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
 import { CreateUserDTO } from './dtos/create-user.dto';
-import { InjectRepository, TypeOrmModule } from '@nestjs/typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from './user.entities';
 import { Repository } from 'typeorm';
 
@@ -26,7 +25,7 @@ export class UsersService {
       },
     });
     if (!userExists) {
-      throw new NotFoundException('account not found');
+      // throw new NotFoundException('account not found');
     }
     const userVal = await this.repo.findOne({
       where: {

@@ -1,0 +1,24 @@
+###create a new post
+POST http://localhost:3000/reports/new
+Content-Type: application/json
+
+{
+    "long":"6.5772777798041675",
+    "lat":"3.25593725191053",
+    "make":"Benz",
+    "model":"GLE",
+    "milage":"210000",
+    "year":2021,
+    "price":12000
+    }
+
+###update Post
+PATCH  http://localhost:3000/reports/8
+Content-Type: application/json
+
+{
+    "approve":true
+}
+
+### get your price
+GET http://localhost:3000/reports/estimate?long=3.1211&lat=1.2321&make=Nord&model=SUV+3&milage=10000&year=2024

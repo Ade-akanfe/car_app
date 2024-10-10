@@ -5,8 +5,8 @@ import { UsersModule } from './users/users.module';
 import { ReportsModule } from './reports/reports.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserEntity } from './users/user.entities';
-import { ReportEntity } from './reports/reports.entity';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { Report } from './reports/report-entity';
 
 @Module({
   controllers: [AppController],
@@ -22,7 +22,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
         return {
           database: config.get<string>('DB_NAME'),
           type: 'sqlite',
-          entities: [UserEntity, ReportEntity],
+          entities: [UserEntity, Report],
           synchronize: true,
         };
       },

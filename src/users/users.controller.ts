@@ -3,7 +3,6 @@ import {
   Controller,
   Get,
   MethodNotAllowedException,
-  Param,
   Post,
   Session,
   UseGuards,
@@ -49,9 +48,7 @@ export class UsersController {
   @Get('/me')
   @UseGuards(AuthGuard)
   async activeUser(@currentUser() current_user: any) {
-    if (!current_user) {
-      throw new MethodNotAllowedException('Please login to continue');
-    }
+   
     return current_user;
   }
 
